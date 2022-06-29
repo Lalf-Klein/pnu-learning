@@ -4,6 +4,22 @@ from mydataset import MyDataset
 
 
 class PNULearning():
+    """
+    PNULearning class as described in the paper
+    Tomoya Sakai, Marthinus Christoffel du Plessis, Gang Niu, and Masashi Sugiyama. 
+    Semi-supervised classification based on classification from positive and unlabeled data. 
+    In Proceedings of the 34th International Conference on Machine Learning, ICML 2017, Sydney, NSW, Australia, 6-11 August 2017, pp.2998–3006, 2017.
+    
+    Args:
+        model (torch.nn.Module): Deep learning model with Torch
+        loss_func: Loss functions like "torch.sigmoid"
+        optimizer: torch.optim.Optimizer like "torch.optim.Adam"
+        lr (float): Learning rate
+        p_ratio (float): Percentage of positive data
+        eta (float): Hyperparameters that take the values between 0 and 1
+        device (str): CPU/GPU information obtained by "torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')"
+    """
+
     def __init__(self, model, loss_func, optimizer, lr, p_ratio, eta, device):
         self.model = model
         self.loss_func = loss_func
