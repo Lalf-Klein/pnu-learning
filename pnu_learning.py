@@ -3,7 +3,7 @@ import numpy as np
 from mydataset import MyDataset
 
 
-class PNULearning():
+class PNULearning:
     """
     PNULearning class as described in the paper
     Tomoya Sakai, Marthinus Christoffel du Plessis, Gang Niu, and Masashi Sugiyama. 
