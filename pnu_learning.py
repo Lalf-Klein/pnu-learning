@@ -4,8 +4,8 @@ from mydataset import MyDataset
 
 
 class PNULearning():
-    def __init__(self, model, loss_func, optimizer, lr, input_shape, p_ratio, eta, device):
-        self.model = model(input_shape)
+    def __init__(self, model, loss_func, optimizer, lr, p_ratio, eta, device):
+        self.model = model
         self.loss_func = loss_func
         self.optimizer = optimizer(self.model.parameters(), lr=lr)
         self.p_ratio = p_ratio
