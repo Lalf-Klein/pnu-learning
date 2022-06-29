@@ -98,7 +98,7 @@ class PNULearning():
         train_dataset = MyDataset(x_train, y_train)
         test_dataset = MyDataset(x_test, y_test)
         train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-        test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=len(test_dataset))
+        test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=len(test_dataset), shuffle=False)
         
         train_loss_history = []
         train_acc_history = []
@@ -176,11 +176,18 @@ class PNULearning():
                test_loss_history, test_acc_history, test_precision_history, test_recall_history
     
     def predict(self, x_test, threshold=0):
-        X = torch.tensor(x_test).to(self.device)
+        x_test
+        _t = np.zeros(len(x_test))
+        pred_dataset = MyDataset(x_test, _t)
+        test_dataloader = torch.utils.data.DataLoader(pred_dataset, batch_size=len(pred_dataset)//5, shuffle=False)
         self.model.eval()
+        pred = torch.tensor([]).to(self.device)
         with torch.no_grad():
-            y = self.model(X).flatten()
-            y[y>=threshold] = 1
-            y[y<threshold] = -1
-        return y
+            for batch, (X, _t) in enumerate(test_dataloader):
+                X = X.to(self.device)
+                temp_pred = self.model(X).flatten()
+                temp_pred[temp_pred>=threshold] = 1
+                temp_pred[temp_pred<threshold] = -1
+                pred = torch.cat((pred, temp_pred))
+        return pred
     
